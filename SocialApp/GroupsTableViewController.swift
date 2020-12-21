@@ -30,6 +30,18 @@ class GroupsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    @IBAction func addGroup(segue: UIStoryboardSegue) {
+        if segue.identifier == "addGroup" {
+            guard let groupsSearchController = segue.source as? GroupsSerachTableViewController else { return }
+            
+            if let indexPath = groupsSearchController.tableView.indexPathForSelectedRow {
+                groups.append(groupsSearchController.groups[indexPath.row])
+                tableView.reloadData()
+            }
+
+        }
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -47,7 +59,7 @@ class GroupsTableViewController: UITableViewController {
 
         if let cell = cell as? GroupTableViewCell {
             let group = groups[indexPath.row]
-            cell.avatarImageView.image = group.image
+            cell.avatarView.imageView.image = group.image
             cell.nameLabel.text = group.name
         }
 
